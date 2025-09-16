@@ -254,6 +254,102 @@ export const TokenSchema = {
     title: 'Token'
 } as const;
 
+export const TweetCreateSchema = {
+    properties: {
+        content: {
+            type: 'string',
+            maxLength: 280,
+            minLength: 1,
+            title: 'Content'
+        }
+    },
+    type: 'object',
+    required: ['content'],
+    title: 'TweetCreate'
+} as const;
+
+export const TweetPublicSchema = {
+    properties: {
+        content: {
+            type: 'string',
+            maxLength: 280,
+            minLength: 1,
+            title: 'Content'
+        },
+        id: {
+            type: 'string',
+            format: 'uuid',
+            title: 'Id'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time',
+            title: 'Created At'
+        },
+        author_id: {
+            type: 'string',
+            format: 'uuid',
+            title: 'Author Id'
+        },
+        author: {
+            anyOf: [
+                {
+                    '$ref': '#/components/schemas/UserPublic'
+                },
+                {
+                    type: 'null'
+                }
+            ]
+        },
+        likes_count: {
+            type: 'integer',
+            title: 'Likes Count'
+        }
+    },
+    type: 'object',
+    required: ['content', 'id', 'created_at', 'author_id', 'likes_count'],
+    title: 'TweetPublic'
+} as const;
+
+export const TweetUpdateSchema = {
+    properties: {
+        content: {
+            anyOf: [
+                {
+                    type: 'string',
+                    maxLength: 280,
+                    minLength: 1
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Content'
+        }
+    },
+    type: 'object',
+    title: 'TweetUpdate'
+} as const;
+
+export const TweetsPublicSchema = {
+    properties: {
+        data: {
+            items: {
+                '$ref': '#/components/schemas/TweetPublic'
+            },
+            type: 'array',
+            title: 'Data'
+        },
+        count: {
+            type: 'integer',
+            title: 'Count'
+        }
+    },
+    type: 'object',
+    required: ['data', 'count'],
+    title: 'TweetsPublic'
+} as const;
+
 export const UpdatePasswordSchema = {
     properties: {
         current_password: {
