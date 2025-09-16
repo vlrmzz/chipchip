@@ -56,6 +56,28 @@ export type Token = {
     token_type?: string;
 };
 
+export type TweetCreate = {
+    content: string;
+};
+
+export type TweetPublic = {
+    content: string;
+    id: string;
+    created_at: string;
+    author_id: string;
+    author?: (UserPublic | null);
+    likes_count: number;
+};
+
+export type TweetsPublic = {
+    data: Array<TweetPublic>;
+    count: number;
+};
+
+export type TweetUpdate = {
+    content?: (string | null);
+};
+
 export type UpdatePassword = {
     current_password: string;
     new_password: string;
@@ -170,6 +192,45 @@ export type PrivateCreateUserData = {
 };
 
 export type PrivateCreateUserResponse = (UserPublic);
+
+export type TweetsReadTweetsData = {
+    limit?: number;
+    skip?: number;
+};
+
+export type TweetsReadTweetsResponse = (TweetsPublic);
+
+export type TweetsCreateTweetData = {
+    requestBody: TweetCreate;
+};
+
+export type TweetsCreateTweetResponse = (TweetPublic);
+
+export type TweetsReadMyTweetsData = {
+    limit?: number;
+    skip?: number;
+};
+
+export type TweetsReadMyTweetsResponse = (TweetsPublic);
+
+export type TweetsReadTweetData = {
+    id: string;
+};
+
+export type TweetsReadTweetResponse = (TweetPublic);
+
+export type TweetsUpdateTweetData = {
+    id: string;
+    requestBody: TweetUpdate;
+};
+
+export type TweetsUpdateTweetResponse = (TweetPublic);
+
+export type TweetsDeleteTweetData = {
+    id: string;
+};
+
+export type TweetsDeleteTweetResponse = (Message);
 
 export type UsersReadUsersData = {
     limit?: number;
